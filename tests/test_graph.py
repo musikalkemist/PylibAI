@@ -7,7 +7,7 @@ from search import Vertex
 # tests for Vertex class
 @pytest.fixture
 def vertex():
-    """Returns a Vertex instance named 'v1'"""
+    """Returns a Vertex instance named 'v1'."""
     return Vertex('v1')
 
 def test_setting_vertex_name(vertex):
