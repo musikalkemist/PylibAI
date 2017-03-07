@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="English">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>search.graph &#8212; PylibAI 0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head>
+  <body role="document">
+      <div class="header" role="banner"><h1 class="heading"><a href="../../index.html">
+          <span>PylibAI 0 documentation</span></a></h1>
+        <h2 class="heading"><span>search.graph</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for search.graph</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains classes that are needed to represent</span>
+<span class="sd">directed and undirected graphs.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">BLACK</span> <span class="o">=</span> <span class="s">&#39;black&#39;</span>
+
+<div class="viewcode-block" id="Vertex"><a class="viewcode-back" href="../../search_algorithms.html#search.graph.Vertex">[docs]</a><span class="k">class</span> <span class="nc">Vertex</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Provides the data structure for the vertex of a graph.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">neighbours</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_distance</span> <span class="o">=</span> <span class="mi">99999</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_colour</span> <span class="o">=</span> <span class="n">BLACK</span>
+
+<div class="viewcode-block" id="Vertex.add_neighbours"><a class="viewcode-back" href="../../search_algorithms.html#search.graph.Vertex.add_neighbours">[docs]</a>    <span class="k">def</span> <span class="nf">add_neighbours</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">neighbours</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds one or more neighbour vertices to a vertex</span>
+<span class="sd">        :param neighbours: list of vertices</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">neighbour</span> <span class="ow">in</span> <span class="n">neighbours</span><span class="p">:</span>
+            <span class="c"># check that neighbour doesn&#39;t exist already</span>
+            <span class="k">if</span> <span class="n">neighbour</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">neighbours</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">neighbours</span><span class="o">.</span><span class="n">append</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">neighbours</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Vertex.remove_neighbours"><a class="viewcode-back" href="../../search_algorithms.html#search.graph.Vertex.remove_neighbours">[docs]</a>    <span class="k">def</span> <span class="nf">remove_neighbours</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">neighbours</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove one or more neighbour vertices to a vertex</span>
+<span class="sd">        :param neighbours: list of vertices</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">neighbour</span> <span class="ow">in</span> <span class="n">neighbours</span><span class="p">:</span>
+            <span class="c"># check that neighbour exists</span>
+            <span class="k">if</span> <span class="n">neighbour</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">neighbours</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">neighbours</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">neighbour</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">neighbours</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span></div></div>
+
+
+
+<span class="k">class</span> <span class="nc">Graph</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vertices</span><span class="o">=</span><span class="p">[]):</span>
+        <span class="k">pass</span>
+</pre></div>
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Valerio Velardo.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+    </div>
+  </body>
+</html>
